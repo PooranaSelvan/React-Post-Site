@@ -11,7 +11,7 @@ function Postlist({ isPosting, onStopPosting }) {
   const [isPostUpdating, setPostToUpdate] = useState(false);
   const post = useRef();
 
-  const baseUrl = import.meta.env.VITE_STATUS === "production" ? import.meta.env.VITE_URL_PROD : import.meta.env.import.meta.env.VITE_URL_LOCAL
+  const baseUrl = import.meta.env.VITE_STATUS === "production" ? import.meta.env.VITE_URL_PROD : import.meta.env.VITE_URL_LOCAL
 
   useEffect(() => {
     async function fetchPosts() {
