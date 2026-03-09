@@ -7,16 +7,15 @@ import classes from './Postlist.module.css';
 import UpdateModel from './UpdateModel';
 
 function Postlist({ isPosting, onStopPosting }) {
-  // fetch('http://localhost:8080/posts').then(response => response.json()).then(data => {
-  //   setPosts(data.posts)
-  // });
   const [posts, setPosts] = useState([]);
   const [isPostUpdating, setPostToUpdate] = useState(false);
   const post = useRef();
 
+  const baseUrl = import.meta.env.VITE_STATUS === "production" ? import.meta.env.VITE_URL_PROD : import.meta.env.import.meta.env.VITE_URL_LOCAL
+
   useEffect(() => {
     async function fetchPosts() {
-      const response = await fetch('http://localhost:8080/posts');
+      const response = await fetch(`${baseUrl}/posts`);
       const resData = await response.json();
 
       // console.log(resData);
@@ -28,7 +27,7 @@ function Postlist({ isPosting, onStopPosting }) {
   }, []);
 
   async function addPostHandler(postData) {
-    let res = await fetch('http://localhost:8080/posts', {
+    let res = await fetch(`${baseUrl}/posts`, {
       method: 'POST',
       body: JSON.stringify(postData),
       headers: {
@@ -52,7 +51,7 @@ function Postlist({ isPosting, onStopPosting }) {
   async function onPostDelete(id) {
     // console.log(id);
 
-    let res = await fetch("http://localhost:8080/delete-post", {
+    let res = await fetch(`${baseUrl}/delete-post`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -78,7 +77,7 @@ function Postlist({ isPosting, onStopPosting }) {
   async function openPostModal(id) {
     // console.log(id);
 
-    let res = await fetch(`http://localhost:8080/posts/${id}`);
+    let res = await fetch(`${baseUrl}/posts/${id}`);
 
     if (!res.ok) {
       console.log("Error Getting By Id : ", res);
@@ -93,7 +92,7 @@ function Postlist({ isPosting, onStopPosting }) {
   async function onPostUpdate(updatedPost) {
     // console.log(updatedPost);
 
-    let res = await fetch("http://localhost:8080/update-post", {
+    let res = await fetch(`${baseUrl}/update-post`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
